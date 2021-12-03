@@ -1,23 +1,4 @@
-use std::{env, num::ParseIntError, str::FromStr};
-
-enum Part {
-    Part1,
-    Part2,
-}
-
-impl FromStr for Part {
-    type Err = ();
-
-    fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
-        match s {
-            "part1" => Ok(Self::Part1),
-            "part2" => Ok(Self::Part2),
-            _ => Ok(Self::Part1),
-        }
-    }
-}
-
-type Result<T> = std::result::Result<T, ParseIntError>;
+use common::{run, Result};
 
 fn part1(input: &str) -> Result<i32> {
     let ans = input
@@ -47,18 +28,7 @@ fn part2(input: &str) -> Result<i32> {
 }
 
 fn main() -> Result<()> {
-    let input = include_str!("input.txt");
+    run(include_str!("input.txt"), &part1, &part2)?;
 
-    let part: Part = env::args()
-        .nth(1)
-        .map(|s| s.parse().unwrap())
-        .or(Some(Part::Part1))
-        .unwrap();
-    let ans = match part {
-        Part::Part1 => part1(input),
-        Part::Part2 => part2(input),
-    }?;
-
-    dbg!(ans);
     Ok(())
 }
