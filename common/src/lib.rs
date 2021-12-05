@@ -2,6 +2,7 @@
 
 use std::{env, fmt::Debug, num::ParseIntError, str::FromStr};
 
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone, Copy)]
 pub enum Part {
     Part1,
     Part2,
